@@ -1,8 +1,8 @@
 <template lang="fr">
-    <div class="food-card-container bg-white h-auto w-80 shadow-sm rounded-2xl ml-2 mt-2 p-4 flex flex-col">
+    <div class="food-card-container bg-white h-auto w-80 shadow-sm rounded-2xl mb-4 mt-4 p-4 flex flex-col">
        <div class="header flex items-center mb-3">
-         <img src="https://img.cuisineaz.com/660x660/2018/03/19/i137518-lasagnes-italiennes-d-anne-therese.jpeg" alt="" class=" h-16 rounded-full">
-         <span class="title ml-2">Lasagnes</span>
+         <img :src="result.strDrinkThumb" alt="" class=" h-16 rounded-full">
+         <span class="title ml-2">{{result.strDrink}}</span>
        </div>
        <h1>Ingrédients</h1>
        <div class="w-full flex justify-center">
@@ -29,7 +29,9 @@ import IngredientCard from './IngredientCard.vue';
   
 export default {
   name: "FoodCard",
-  props: {},
+  props: {
+    result: null,
+  },
   data() {
     return {
       test: "\uD83C\uDF45"

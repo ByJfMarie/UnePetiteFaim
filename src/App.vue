@@ -1,8 +1,6 @@
-/* eslint-disable */
 
 <template>
-
-  <div class="page w-full flex justify-center mt-6 items-center">
+  <div class="page w-full flex justify-center mt-12 items-center">
 
     <div class="searchBar bg-white w-1/3 py-2 px-4 rounded-full  shadow-lg mr-4">
       <i class="fas fa-search mr-6"></i>
@@ -14,30 +12,38 @@
     </button>
   </div>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <Accueil />
+  <div class="w-full flex justify-center mt-16">
+
+    <div class="flex justify-around flex-wrap w-9/12">
+      
+      <div class="" v-for="result in results" :key="result">
+        <foodCard :result="result"></foodCard>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Accueil from "./components/Accueil.vue";
 import axios from 'axios'
+import foodCard from './components/foodCard.vue'
 
 
 export default {
   name: "App",
   components: {
-    Accueil,
-
+    foodCard
   },
   data() {
     return {
       searchText: "",
+      results: null,
     }
   },
   methods: {
     search() {
-      axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='+this.searchText)
+      axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
       .then(response =>{
-        console.log(response.data.drinks);
+        this.results = response.data.drinks;
       })
     },
 
