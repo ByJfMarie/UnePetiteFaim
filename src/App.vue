@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 <template>
+
   <div class="page w-full flex justify-center mt-6 items-center">
 
     <div class="searchBar bg-white w-1/3 py-2 px-4 rounded-full  shadow-lg mr-4">
@@ -20,6 +21,7 @@
 import Accueil from "./components/Accueil.vue";
 import axios from 'axios'
 
+
 export default {
   name: "App",
   components: {
@@ -38,9 +40,17 @@ export default {
         console.log(response.data.drinks);
       })
     },
+
   },
 };
 </script>
 
 <style>
 </style>
+
+<!--
+couleurs
+
+gris clair de fond : #f9f9fb
+
+-->
