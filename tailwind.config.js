@@ -6,6 +6,15 @@ module.exports = {
       backgroundColor: {
         'primary': '#F2F2F5'
       },
+      height: {
+        '86': '21rem',
+        '88': '24rem',
+        '90': '26rem',
+        '92': '28rem'
+      },
+      fontFamily: {
+        'RobotoMono': ['Roboto Mono', 'monospace'],
+      }
     },
   },
   variants: {

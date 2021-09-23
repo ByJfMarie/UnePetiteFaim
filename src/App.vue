@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     search() {
-      axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
+      axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
       .then(response =>{
         this.results = response.data.drinks;
       })
