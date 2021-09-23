@@ -18,7 +18,7 @@
 
 <script>
 import Accueil from "./components/Accueil.vue";
-import { searchRecipes, QueryBuilder} from 'marmiton-api';
+import axios from 'axios'
 
 export default {
   name: "App",
@@ -33,14 +33,10 @@ export default {
   },
   methods: {
     search() {
-      
-      const query = new QueryBuilder()
-        .withTitleContaining(this.searchText) 
-        .build();
-
-      const recipes = searchRecipes(query);
-
-      console.log(recipes);
+      axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='+this.searchText)
+      .then(response =>{
+        console.log(response.data.drinks);
+      })
     },
   },
 };
