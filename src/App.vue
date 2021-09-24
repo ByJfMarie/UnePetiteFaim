@@ -25,10 +25,23 @@
     </div>
   </div>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <div class="w-full flex justify-center mt-16">
-
-    <div class="flex justify-around flex-wrap w-9/12">
-      
+  <div class="w-full flex justify-center">
+    <div class="flex flex-col w-9/12 mt-14" v-if="popularDrink != null && results == null">
+      <h1 class="text-center font-bold text-xl">Popular drinks</h1>
+      <div class="flex justify-around flex-wrap mt-4">
+        <div class="" v-for="result in popularDrink" :key="result">
+          <foodCard :result="result"></foodCard>
+        </div>
+      </div>
+      <h1 class="text-center font-bold text-xl mt-14">Latest drinks</h1>
+      <div class="flex justify-around flex-wrap mt-4">
+        <div class="" v-for="result in latestDrink" :key="result">
+          <foodCard :result="result"></foodCard>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex justify-around flex-wrap w-9/12 mt-14" v-else>
       <div class="" v-for="result in results" :key="result">
         <foodCard :result="result"></foodCard>
       </div>
@@ -51,6 +64,8 @@ export default {
       searchText: "",
       results: null,
       FilterPage: false,
+      popularDrink: null,
+      latestDrink: null,
     }
   },
   methods: {
@@ -66,13 +81,29 @@ export default {
       this.FilterPage = false
     },
     search() {
-      axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
-      .then(response =>{
-        this.results = response.data.drinks;
-      })
+      if (this.searchText == ""){
+        this.results = null
+      }else {
+        axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
+          .then(response =>{
+          this.results = response.data.drinks;
+        })
+      }
+      
     },
 
   },
+  created() {
+    axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/popular.php')
+      .then(response =>{
+        this.popularDrink = response.data.drinks.splice(0, 8);
+      })
+    
+    axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/latest.php')
+    .then(response =>{
+      this.latestDrink = response.data.drinks.splice(0, 8);
+    })
+  }
 };
 </script>
 
