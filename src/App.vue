@@ -15,6 +15,9 @@
       <i class="fas fa-sort-amount-up"></i>
       <h1 class="focus:outline-none text-gray-400">Trier</h1>
     </button>
+    <button class="randomDrink bg-white w-auto py-3 px-3 rounded-full  shadow-lg flex justify-around items-center ml-4 focus-within:shadow-xl" v-on:click="random">
+      <i class="fas fa-dice"></i>
+    </button>
 
     </div>
   </div>
@@ -24,9 +27,16 @@
       <button v-on:click="closeFilterPage"><i class="fas fa-times absolute top-2 right-4"></i></button>
     </div>
   </div>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <div class="w-full flex justify-center">
-    <div class="flex flex-col w-9/12 mt-14" v-if="popularDrink != null && results == null">
+    <div class="flex justify-around flex-wrap w-9/12 mt-14" v-if="randomDrink != null">
+      <h1 class="text-center font-bold text-xl">Random drinks</h1>
+      <div class="flex justify-around flex-wrap mt-4">
+        <div class="" v-for="result in randomDrink" :key="result">
+          <foodCard :result="result"></foodCard>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col w-9/12 mt-14" v-else-if="popularDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Popular drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
         <div class="" v-for="result in popularDrink" :key="result">
@@ -66,6 +76,7 @@ export default {
       FilterPage: false,
       popularDrink: null,
       latestDrink: null,
+      randomDrink: null,
     }
   },
   methods: {
@@ -81,8 +92,9 @@ export default {
       this.FilterPage = false
     },
     search() {
+      this.randomDrink = null;
       if (this.searchText == ""){
-        this.results = null
+        this.results = null;
       }else {
         axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
           .then(response =>{
@@ -91,6 +103,12 @@ export default {
       }
       
     },
+    random() {
+      axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php')
+      .then(response =>{
+        this.randomDrink = response.data.drinks.splice(0, 8);
+      })
+    }
 
   },
   created() {
