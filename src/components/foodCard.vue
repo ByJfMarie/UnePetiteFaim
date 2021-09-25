@@ -1,5 +1,5 @@
 <template lang="fr">
-    <div class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl mb-4 mt-4 p-4 flex flex-col relative" v-if="recette">
+    <div v-bind:class="{'h-92': clicked, 'w-96': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl mb-4 mt-4 p-4 flex flex-col relative duration-500" v-if="recette">
        <div class="header flex items-center mb-3">
          <img :src="recette.strDrinkThumb" alt="" class=" h-16 rounded-full">
          <span class="title ml-2">{{recette.strDrink}}<br><span class="text-xs text-gray-400">{{recette.strCategory}}</span></span>
@@ -14,7 +14,8 @@
           </div>
         </div>
        <div class="footer absolute bottom-4" >
-           <button class="rounded-full pt-1 pb-1 pl-5 pr-5 bg-red-400 text-white hover:bg-red-300">Voir la recette</button>
+           <button v-if="clicked == false" v-on:click="showReceipe" class="rounded-full pt-1 pb-1 pl-5 pr-5 bg-red-400 text-white hover:bg-red-300 focus:bg-red-300 focus:outline-none duration-100">Voir la recette</button>
+           <button v-else v-on:click="showReceipe" class="rounded-full pt-1 pb-1 pl-5 pr-5 bg-red-400 text-white hover:bg-red-300 focus:bg-red-300 focus:outline-none duration-100">Réduire la recette</button>
        </div>
        <div class="footer absolute bottom-5 right-4" >
         <span class="text-xs text-gray-400"><i class="fas fa-glass-martini-alt"></i> {{recette.strAlcoholic}}</span>
@@ -36,9 +37,9 @@ export default {
   },
   data() {
     return {
-      test: "\uD83C\uDF45",
       recette: null,
       ingredients: [],
+      clicked: false,
     };
   },
   created() {
@@ -73,6 +74,16 @@ export default {
   },
   components: {
     IngredientCard,
+  },
+  methods: {
+    showReceipe() {
+      if (this.clicked == false) {
+        this.clicked = true;
+      }else {
+        this.clicked = false;
+      }
+      
+    },
   },
 };
 </script>
