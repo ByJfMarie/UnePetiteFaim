@@ -1,5 +1,5 @@
 <template lang="fr">
-    <div v-bind:class="{'h-92': clicked, 'w-96': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl mb-4 mt-4 p-4 flex flex-col relative duration-500" v-if="recette">
+    <div v-bind:class="{'h-92 md:min-w-tst md:mx-50%': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-500" v-if="recette">
        <div class="header flex items-center mb-3">
          <img :src="recette.strDrinkThumb" alt="" class=" h-16 rounded-full">
          <span class="title ml-2">{{recette.strDrink}}<br><span class="text-xs text-gray-400">{{recette.strCategory}}</span></span>
@@ -43,7 +43,7 @@ export default {
     };
   },
   created() {
-    axios.get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i='+this.result.idDrink)
+    axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/lookup.php?i='+this.result.idDrink)
     .then(response =>{
       this.recette = response.data.drinks[0];
       for (let i = 1; i <= 15; i++) {
@@ -82,6 +82,7 @@ export default {
       }else {
         this.clicked = false;
       }
+      this.$emit("isClicked", this.clicked)
       
     },
   },

@@ -2,11 +2,11 @@
 <template>
   <div class="page w-full flex sm:flex-row flex-col justify-center mt-12 items-center">
 
-    <div class="searchBar bg-white w-5/6 sm:w-2/3 md:w-1/3 py-2 px-4 rounded-full  shadow-lg mr-4 focus-within:shadow-xl focus:outline-none focus:shadow-xl">
+    <div class="searchBar bg-white w-5/6 sm:w-5/12 md:w-1/3 py-2 px-4 rounded-full  shadow-lg sm:mr-4 mr-0 focus-within:shadow-xl focus:outline-none focus:shadow-xl">
       <i class="fas fa-search mr-6"></i>
-      <input type="text" placeholder="Rechercher une recette" class="focus:outline-none w-4/6 sm:w-5/6" @keyup.enter="search" v-model="searchText" >
+      <input type="text" placeholder="Rechercher une recette" class="focus:outline-none w-auto" @keyup.enter="search" v-model="searchText" >
     </div>
-    <div class="boutons sm:mt-0 mt-4 ml-4 flex">
+    <div class="boutons sm:mt-0 mt-4 sm:ml-4 ml-0 flex">
     <button class="filterBar bg-white w-28 py-2 px-4 rounded-full  shadow-lg flex justify-around items-center focus-within:shadow-xl focus:outline-none focus:shadow-xl" v-on:click="openFilterPage">
       <i class="fas fa-filter"></i>
       <h1 class="focus:outline-none text-gray-400">Filter</h1>
@@ -39,9 +39,7 @@
     <div class="flex flex-col w-9/12 mt-14" v-else-if="popularDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Popular drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
-        <div class="" v-for="result in popularDrink" :key="result">
-          <foodCard :result="result"></foodCard>
-        </div>
+        <foodCard v-for="result in popularDrink" :key="result" @isClicked="setClicked" :result="result"></foodCard>
       </div>
       <h1 class="text-center font-bold text-xl mt-14">Latest drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
@@ -77,6 +75,7 @@ export default {
       popularDrink: null,
       latestDrink: null,
       randomDrink: null,
+      clicked: false,
     }
   },
   methods: {
@@ -108,6 +107,9 @@ export default {
       .then(response =>{
         this.randomDrink = response.data.drinks.splice(0, 8);
       })
+    },
+    setClicked(clicked) {
+      this.clicked = clicked;
     }
 
   },
