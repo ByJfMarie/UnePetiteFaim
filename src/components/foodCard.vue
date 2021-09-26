@@ -1,5 +1,5 @@
 <template lang="fr">
-    <div v-bind:class="{'h-92 md:min-w-tst md:mx-50%': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-500" v-if="recette">
+    <div v-bind:class="{'h-92 md:min-w-tst md:mx-50% md:order-first': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-500" v-if="recette">
        <div class="header flex items-center mb-3">
          <img :src="recette.strDrinkThumb" alt="" class=" h-16 rounded-full">
          <span class="title ml-2">{{recette.strDrink}}<br><span class="text-xs text-gray-400">{{recette.strCategory}}</span></span>
