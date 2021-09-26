@@ -17,7 +17,7 @@ module.exports = {
         '86': '21rem',
         '88': '24rem',
         '90': '26rem',
-        '92': '28rem'
+        '92': '28rem',
       },
       minWidth: {
         'tst': '28rem'
@@ -28,6 +28,9 @@ module.exports = {
       },
       fontFamily: {
         'RobotoMono': ['Roboto Mono', 'monospace'],
+      },
+      screens: {
+        '2sm': '425px'
       }
     },
   },

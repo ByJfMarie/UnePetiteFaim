@@ -7,11 +7,16 @@
        <h1 class="font-semibold">Ingrédients</h1>
        <div class="w-full flex justify-center">
 
-         <div class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
+         <div v-if="clicked == false" class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
            <div class="" v-for="ingredient in ingredients" :key="ingredient">
               <IngredientCard :name="ingredient.name" :photo="ingredient.photo" :last="ingredient.last" :more="ingredient.more"/>
            </div>
           </div>
+          <div v-else class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
+            <div class="" v-for="ingredient in ingredientsFull" :key="ingredient">
+               <IngredientCard :name="ingredient.name" :photo="ingredient.photo"/>
+            </div>
+           </div>
         </div>
        <div class="footer absolute bottom-4" >
            <button v-if="clicked == false" v-on:click="showReceipe" class="rounded-full pt-1 pb-1 pl-5 pr-5 bg-red-400 text-white hover:bg-red-300 focus:bg-red-300 focus:outline-none duration-100">Voir la recette</button>
@@ -39,6 +44,7 @@ export default {
     return {
       recette: null,
       ingredients: [],
+      ingredientsFull: [],
       clicked: false,
     };
   },
@@ -61,6 +67,7 @@ export default {
         ingredient.last = false;
         ingredient.more = null;
 
+        this.ingredientsFull.push(ingredient);
         this.ingredients.push(ingredient);        
 
       }
@@ -82,7 +89,6 @@ export default {
       }else {
         this.clicked = false;
       }
-      this.$emit("isClicked", this.clicked)
       
     },
   },

@@ -4,7 +4,7 @@
 
     <div class="searchBar bg-white w-5/6 sm:w-5/12 md:w-1/3 py-2 px-4 rounded-full  shadow-lg sm:mr-4 mr-0 focus-within:shadow-xl focus:outline-none focus:shadow-xl">
       <i class="fas fa-search mr-6"></i>
-      <input type="text" placeholder="Rechercher une recette" class="focus:outline-none w-auto" @keyup.enter="search" v-model="searchText" >
+      <input type="text" placeholder="Rechercher une recette" class="focus:outline-none w-4/5" @keyup.enter="search" v-model="searchText" >
     </div>
     <div class="boutons sm:mt-0 mt-4 sm:ml-4 ml-0 flex">
     <button class="filterBar bg-white w-28 py-2 px-4 rounded-full  shadow-lg flex justify-around items-center focus-within:shadow-xl focus:outline-none focus:shadow-xl" v-on:click="openFilterPage">
@@ -28,31 +28,25 @@
     </div>
   </div>
   <div class="w-full flex justify-center">
-    <div class="flex justify-around flex-wrap w-9/12 mt-14" v-if="randomDrink != null">
+    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-if="randomDrink != null">
       <h1 class="text-center font-bold text-xl">Random drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
-        <div class="" v-for="result in randomDrink" :key="result">
-          <foodCard :result="result"></foodCard>
-        </div>
+        <foodCard v-for="result in randomDrink" :key="result" :result="result"></foodCard>
       </div>
     </div>
-    <div class="flex flex-col w-9/12 mt-14" v-else-if="popularDrink != null && results == null">
+    <div class="flex flex-col w-full 2sm:w-9/12 mt-14" v-else-if="popularDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Popular drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
-        <foodCard v-for="result in popularDrink" :key="result" @isClicked="setClicked" :result="result"></foodCard>
+        <foodCard v-for="result in popularDrink" :key="result" :result="result"></foodCard>
       </div>
       <h1 class="text-center font-bold text-xl mt-14">Latest drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
-        <div class="" v-for="result in latestDrink" :key="result">
-          <foodCard :result="result"></foodCard>
-        </div>
+        <foodCard v-for="result in latestDrink" :key="result" :result="result"></foodCard>
       </div>
     </div>
     
-    <div class="flex justify-around flex-wrap w-9/12 mt-14" v-else>
-      <div class="" v-for="result in results" :key="result">
-        <foodCard :result="result"></foodCard>
-      </div>
+    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-else>
+      <foodCard v-for="result in results" :key="result" :result="result"></foodCard>
     </div>
   </div>
 </template>
@@ -75,7 +69,6 @@ export default {
       popularDrink: null,
       latestDrink: null,
       randomDrink: null,
-      clicked: false,
     }
   },
   methods: {
