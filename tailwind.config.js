@@ -10,7 +10,8 @@ module.exports = {
         '86': '21rem',
         '88': '24rem',
         '90': '26rem',
-        '92': '28rem'
+        '92': '28rem',
+        '120': '40rem',
       },
       width: {
         '70\/': '70%',
@@ -20,7 +21,8 @@ module.exports = {
         '92': '28rem',
       },
       minWidth: {
-        'tst': '28rem'
+        'tst': '60rem',
+
       },
       margin: {
         '100%': '100%',
