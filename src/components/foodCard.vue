@@ -42,10 +42,8 @@ export default {
     };
   },
   created() {
-    console.log(this.result.idDrink);
     axios.get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i='+this.result.idDrink)
     .then(response =>{
-      console.log(response.data);
       this.recette = response.data.drinks[0];
       for (let i = 1; i <= 15; i++) {
         if (this.recette['strIngredient'+i] === "" || this.recette['strIngredient'+i] === null) {
@@ -71,7 +69,6 @@ export default {
         this.ingredients[5].last = true;
         this.ingredients[5].more = more;
       }
-      console.log(this.ingredients);
     })
   },
   components: {

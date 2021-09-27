@@ -88,7 +88,8 @@ export default {
       alcoholic: false,
       categories: null,
       categoryFiltre: "Catégories",
-      glassFiltre: "Verres"
+      glassFiltre: "Verres",
+      filterResults: null,
     }
   },
   methods: {
@@ -104,49 +105,43 @@ export default {
       this.FilterPage = false
     },
     search() {
-      axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
-      .then(response =>{
-        this.results = response.data.drinks;
-      })
-    },
-    searchFilter() {
-      let chainFilter = "";
+        axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
+        .then(response =>{
+          this.results = response.data.drinks;
+        })
       
-      if (this.searchFilterText !== "") {
-        chainFilter += "?i=" + this.searchFilterText;
-      }
+    },
+    async searchFilter() {
+      
+        axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
+        .then(response =>{
+          this.results = response.data.drinks;
+          let alcoholic = "";
+          if (this.alcoholic === true) {
+            alcoholic = "Alcoholic";
+          }else
+          {
+            alcoholic = "Non Alcoholic";
+          }
 
-      if (chainFilter === "") {
-        let alcoholic = this.alcoholic ? "?a=Alcoholic" : "?a=Non alcoholic";
-        chainFilter += alcoholic;
-      }else {
-        let alcoholic = this.alcoholic ? "&a=Alcoholic" : "&a=Non alcoholic";
-        chainFilter += alcoholic;
-      }
+          if (this.categoryFiltre === "Catégories") {
+            this.categoryFiltre = "";
+          }
 
-      if (this.categoryFiltre !== "Catégories") {
-        if (chainFilter === "") {
-          chainFilter += "?c=" + this.categoryFiltre;
-        }else {
-          chainFilter += "&c=" + this.categoryFiltre;
-        }
-      }
+          if (this.glassFiltre === "Verres") {
+            this.glassFiltre = "";
+          }
+          
 
-      if (this.glassFiltre !== "Verres") {
-        if (chainFilter === "") {
-          chainFilter += "?g=" + this.glassFiltre;
-        }else {
-          chainFilter += "&g=" + this.glassFiltre;
-        }
-      }
+        this.filterResults = this.results.filter(result => {
+          return result.strCategory.toLowerCase().includes(this.categoryFiltre.toLowerCase()) && result.strGlass.toLowerCase().includes(this.glassFiltre.toLowerCase()) && (result.strAlcoholic.toLowerCase().includes(alcoholic.toLowerCase()) ||  result.strAlcoholic === "Optional alcohol"); 
+        })
+        this.results = this.filterResults;
+        
+        })
 
-      console.log(chainFilter);
-
-      axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/filter.php' + chainFilter)
-      .then(response =>{
-        this.results = response.data.drinks;
-      })
-
+          
+      
     }
 
 
@@ -156,7 +151,7 @@ export default {
     .then(response => {
       this.categories = response.data.drinks;
     }),
-    await axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list')
+    await axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/list.php?g=list')
     .then(response => {
       this.categories.glass = response.data.drinks;
     })
