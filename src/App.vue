@@ -66,6 +66,14 @@ export default {
       searchText: "",
       results: null,
       FilterPage: false,
+      alcoholic: true,
+      categories: null,
+      categoryFiltre: "Catégories",
+      glassFiltre: "Verres",
+      filterResults: null,
+      loading: false,
+
+
       popularDrink: null,
       latestDrink: null,
       randomDrink: null,
