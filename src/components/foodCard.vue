@@ -14,7 +14,7 @@
           </div>
           <div v-else class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
             <div class="" v-for="ingredient in ingredientsFull" :key="ingredient">
-               <IngredientCard :name="ingredient.name" :photo="ingredient.photo"/>
+               <IngredientCard :name="ingredient.fullName" :photo="ingredient.photo" :measure="ingredient.measure" :clicked="clicked"/>
             </div>
            </div>
         </div>
@@ -62,10 +62,12 @@ export default {
         }else {
           ingredient.name = this.recette['strIngredient'+i];
         }
+
         ingredient.measure = this.recette['strMeasure'+i];
         ingredient.photo = 'https://www.thecocktaildb.com/images/ingredients/'+this.recette['strIngredient'+i]+'-Small.png';
         ingredient.last = false;
         ingredient.more = null;
+        ingredient.fullName = this.recette['strIngredient'+i];
 
         this.ingredientsFull.push(ingredient);
         this.ingredients.push(ingredient);        

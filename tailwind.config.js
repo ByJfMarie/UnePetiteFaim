@@ -22,7 +22,10 @@ module.exports = {
       },
       minWidth: {
         'tst': '60rem',
-
+        '20': '5rem'
+      },
+      minHeight: {
+        '16': '4rem'
       },
       margin: {
         '100%': '100%',
