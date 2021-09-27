@@ -90,6 +90,7 @@ export default {
       categoryFiltre: "Catégories",
       glassFiltre: "Verres",
       filterResults: null,
+      loading: false,
     }
   },
   methods: {
