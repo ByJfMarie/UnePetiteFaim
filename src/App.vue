@@ -85,7 +85,7 @@ export default {
       searchFilterText: "",
       results: null,
       FilterPage: false,
-      alcoholic: false,
+      alcoholic: true,
       categories: null,
       categoryFiltre: "Catégories",
       glassFiltre: "Verres",
@@ -136,8 +136,32 @@ export default {
         this.filterResults = this.results.filter(result => {
           return result.strCategory.toLowerCase().includes(this.categoryFiltre.toLowerCase()) && result.strGlass.toLowerCase().includes(this.glassFiltre.toLowerCase()) && (result.strAlcoholic.toLowerCase().includes(alcoholic.toLowerCase()) ||  result.strAlcoholic === "Optional alcohol"); 
         })
-        this.results = this.filterResults;
+
+        if (this.searchFilterText != "") {
+          axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i='+ this.searchFilterText).then(response => {
+            if (response.data.drinks !== "None Found") {
+            
+              let TextResult = []
+              this.filterResults.forEach(result => {
+                response.data.drinks.filter(resResult => {
+                  if(resResult.idDrink.toLowerCase() == result.idDrink.toLowerCase()) {
+                    TextResult.push(result);
+                  }
+                })
+              });
+              this.results = TextResult;
+            }
+            else {
+              this.results = [];
+            }
+          })
+
+        }else{
+          this.results = this.filterResults;
+        }
+
         
+
         })
 
           
