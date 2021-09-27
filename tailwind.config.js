@@ -12,6 +12,9 @@ module.exports = {
         '90': '26rem',
         '92': '28rem'
       },
+      width: {
+        '70\/': '70%'
+      },
       fontFamily: {
         'RobotoMono': ['Roboto Mono', 'monospace'],
       }
