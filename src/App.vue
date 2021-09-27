@@ -71,7 +71,7 @@ export default {
       categoryFiltre: "Catégories",
       glassFiltre: "Verres",
       filterResults: null,
-      loading: false,
+      loading: true,
 
 
       popularDrink: null,
