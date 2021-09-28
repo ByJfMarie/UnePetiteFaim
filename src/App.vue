@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 <template>
   <div class="page w-full flex sm:flex-row flex-col justify-center mt-12 items-center">
 
@@ -60,8 +60,8 @@
       </div>
     </div>
   </div>
-  <div class="w-full flex justify-center">
-    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-if="randomDrink != null">
+  <div class="w-full flex justify-center" :class="{hidden : loading}" >
+    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-if="randomDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Random drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
         <foodCard v-for="result in randomDrink" :key="result" :result="result"></foodCard>
@@ -82,17 +82,26 @@
       <foodCard v-for="result in results" :key="result" :result="result"></foodCard>
     </div>
   </div>
+  <div class="w-full flex justify-center mt-24" :class="{hidden : !loading}"><looping-rhombuses-spinner
+    :animation-duration="2500"
+    :rhombus-size="15"
+    color="#f87171"
+    
+    /></div>
+  
 </template>
 
 <script>
 import axios from 'axios'
 import foodCard from './components/foodCard.vue'
+import { LoopingRhombusesSpinner  } from 'epic-spinners'
 
 
 export default {
   name: "App",
   components: {
-    foodCard
+    foodCard,
+    LoopingRhombusesSpinner
   },
   data() {
     return {
@@ -104,7 +113,7 @@ export default {
       categoryFiltre: "Catégories",
       glassFiltre: "Verres",
       filterResults: null,
-      loading: true,
+      loading: false,
 
 
       popularDrink: null,
@@ -125,6 +134,7 @@ export default {
       this.FilterPage = false
     },
     search() {
+      this.loading = true;
       this.randomDrink = null;
       if (this.searchText == ""){
         this.results = null;
@@ -134,10 +144,12 @@ export default {
           this.results = response.data.drinks;
         })
       }
+      this.loading = false;
       
     },
     async searchFilter() {
-      
+        this.FilterPage = false;
+        this.loading = true;
         axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
         .then(response =>{
           this.results = response.data.drinks;
@@ -185,21 +197,20 @@ export default {
           this.results = this.filterResults;
         }
 
+        this.loading = false;
         
 
         })
-
-          
       
     },
     random() {
+      this.loading = true;
       axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/randomselection.php')
       .then(response =>{
         this.randomDrink = response.data.drinks.splice(0, 8);
       })
-    },
-    setClicked(clicked) {
-      this.clicked = clicked;
+      this.results = null;
+      this.loading = false;
     }
 
   },
@@ -229,6 +240,15 @@ export default {
 </script>
 
 <style>
+  .toggle-checkbox:checked {
+  @apply: right-0 border-red-200;
+  right: 0;
+  border-color: #ffbcbc;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply: bg-red-200;
+  background-color: #ffbcbc;
+}
 </style>
 
 <!--
