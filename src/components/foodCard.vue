@@ -1,5 +1,5 @@
 <template lang="fr">
-    <div v-bind:class="{'pb-16 h-auto md:min-h-120 md:min-w-tst md:mx-50% md:order-first': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-300" v-if="recette">
+    <div v-bind:class="{'pb-16 h-auto md:min-w-tst md:mx-50% md:order-first': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative" v-if="recette">
        <div class="header flex items-center mb-3">
          <img :src="recette.strDrinkThumb" alt="" class=" h-16 rounded-full">
          <span class="title ml-2">{{recette.strDrink}}<br><span class="text-xs text-gray-400">{{recette.strCategory}}</span></span>
@@ -19,10 +19,13 @@
                 <IngredientCard :name="ingredient.fullName" :photo="ingredient.photo" :measure="ingredient.measure" :clicked="clicked"/>
               </div>
             </div>
-            <div class=" w-auto mt-8 px-8 text-gray-600">
-              <ol class="w-auto">
-                <li class="list-decimal py-4 px-2 border-b border-red-400 w-auto" v-for="step in steps" :key="step">{{step}}</li>
-              </ol>
+            <div class="flex flex-col w-auto mt-8 px-8 text-gray-600">
+              <div class="flex items-center w-full my-4" v-for="step in steps" :key="step">
+                <div class="flex min-w-10 min-h-10 rounded-full bg-red-400 justify-center items-center mr-6">
+                  <span class="text-white text-2xl">{{steps.indexOf(step)+1}}</span>
+                </div>
+                <span class="border-b border-red-400 py-4 pr-2 w-full">{{step}}</span>
+              </div>
             </div>
           </div>
         </div>

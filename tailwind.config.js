@@ -21,12 +21,17 @@ module.exports = {
         '92': '28rem',
       },
       minWidth: {
-        'tst': '60rem',
-        '20': '5rem'
+        'tst': '40rem',
+        '20': '5rem',
+        '10': '2.5rem'
+      },
+      maxWidth: {
+        'tst': '60rem'
       },
       minHeight: {
         '16': '4rem',
-        '120': "40rem"
+        '120': "40rem",
+        '10': '2.5rem'
       },
       margin: {
         '100%': '100%',
