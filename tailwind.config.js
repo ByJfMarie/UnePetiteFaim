@@ -25,7 +25,8 @@ module.exports = {
         '20': '5rem'
       },
       minHeight: {
-        '16': '4rem'
+        '16': '4rem',
+        '120': "40rem"
       },
       margin: {
         '100%': '100%',

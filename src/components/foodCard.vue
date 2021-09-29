@@ -1,22 +1,30 @@
 <template lang="fr">
-    <div v-bind:class="{'h-120 md:min-w-tst md:mx-50% md:order-first': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-300" v-if="recette">
+    <div v-bind:class="{'pb-16 h-auto md:min-h-120 md:min-w-tst md:mx-50% md:order-first': clicked}" class="food-card-container bg-white h-86 w-80 shadow-sm rounded-2xl my-4 p-4 flex flex-col relative duration-300" v-if="recette">
        <div class="header flex items-center mb-3">
          <img :src="recette.strDrinkThumb" alt="" class=" h-16 rounded-full">
          <span class="title ml-2">{{recette.strDrink}}<br><span class="text-xs text-gray-400">{{recette.strCategory}}</span></span>
        </div>
        <h1 class="font-semibold">Ingrédients</h1>
-       <div class="w-full flex justify-center">
+       <div class="w-full flex justify-start">
 
          <div v-if="clicked == false" class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
            <div class="" v-for="ingredient in ingredients" :key="ingredient">
               <IngredientCard :name="ingredient.name" :photo="ingredient.photo" :last="ingredient.last" :more="ingredient.more"/>
            </div>
           </div>
-          <div v-else class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
-            <div class="" v-for="ingredient in ingredientsFull" :key="ingredient">
-               <IngredientCard :name="ingredient.fullName" :photo="ingredient.photo" :measure="ingredient.measure" :clicked="clicked"/>
+          <div v-else class="">
+
+            <div class="ingredients-container flex flex-wrap items-center mt-2 mb-4 justify-start  w-full px-2">
+              <div class="" v-for="ingredient in ingredientsFull" :key="ingredient">
+                <IngredientCard :name="ingredient.fullName" :photo="ingredient.photo" :measure="ingredient.measure" :clicked="clicked"/>
+              </div>
             </div>
-           </div>
+            <div class=" w-auto mt-8 px-8 text-gray-600">
+              <ol class="w-auto">
+                <li class="list-decimal py-4 px-2 border-b border-red-400 w-auto" v-for="step in steps" :key="step">{{step}}</li>
+              </ol>
+            </div>
+          </div>
         </div>
        <div class="footer absolute bottom-4" >
            <button v-if="clicked == false" v-on:click="showReceipe" class="rounded-full pt-1 pb-1 pl-5 pr-5 bg-red-400 text-white hover:bg-red-300 focus:bg-red-300 focus:outline-none duration-100">Voir la recette</button>
@@ -25,7 +33,6 @@
        <div class="footer absolute bottom-5 right-4" >
         <span class="text-xs text-gray-400"><i class="fas fa-glass-martini-alt"></i> {{recette.strAlcoholic}}</span>
        </div>
-       
        
     </div>
 
@@ -45,6 +52,7 @@ export default {
       recette: null,
       ingredients: [],
       ingredientsFull: [],
+      steps: [],
       clicked: false,
     };
   },
@@ -79,6 +87,18 @@ export default {
         this.ingredients[5].last = true;
         this.ingredients[5].more = more;
       }
+      let stepsText = "";
+      stepsText = this.recette.strInstructions.replace(/\r/g, '');
+      stepsText = stepsText.replace(/\n/g, '');
+      this.steps =  stepsText.split('.');
+      if (this.steps[this.steps.length-1] === "") {
+        this.steps.pop();
+      }
+      for (let i = 0; i < this.steps.length; i++) {
+        this.steps[i] = this.steps[i].trim();
+        
+      }
+
     })
   },
   components: {

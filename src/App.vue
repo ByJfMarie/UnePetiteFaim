@@ -61,7 +61,11 @@
     </div>
   </div>
   <div class="w-full flex justify-center" :class="{hidden : loading}" >
-    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-if="randomDrink != null && results == null">
+    <div class="flex items-center mt-32" v-if="results == 'None'">
+      <img src="https://distok.top/stickers/755240383084232756/755242982843613305.gif" alt="" class="w-48">
+      <h1 class="ml-8 text-2xl ">Oops... No result for your search</h1>
+    </div>
+    <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-else-if="randomDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Random drinks</h1>
       <div class="flex justify-around flex-wrap mt-4">
         <foodCard v-for="result in randomDrink" :key="result" :result="result"></foodCard>
@@ -141,7 +145,12 @@ export default {
       }else {
         axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
           .then(response =>{
+          if (response.data.drinks == null) {
+            this.results = "None";
+          }
+          else {
           this.results = response.data.drinks;
+          }
         })
       }
       this.loading = false;
@@ -150,7 +159,7 @@ export default {
     async searchFilter() {
         this.FilterPage = false;
         this.loading = true;
-        axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=' + this.searchText)
+        axios.get('https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=')
         .then(response =>{
           this.results = response.data.drinks;
           let alcoholic = "";
@@ -189,7 +198,7 @@ export default {
               this.results = TextResult;
             }
             else {
-              this.results = [];
+              this.results = "None";
             }
           })
 
