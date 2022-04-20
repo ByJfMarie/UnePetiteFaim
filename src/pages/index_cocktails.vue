@@ -21,24 +21,24 @@
   </div>
 
   <div class="filtreBlock w-full flex justify-center mt-6" v-if="FilterPage">
-    <div class="filterPage bg-white h-64 xl:w-5/12 w-10/12 rounded-xl shadow-lg relative">
+    <div class="filterPage bg-white xl:h-64 h-80 xl:w-5/12 lg:w-7/12 w-10/12 rounded-xl shadow-lg relative">
       <button v-on:click="closeFilterPage">
         <i class="fas fa-times absolute top-2 right-4"></i>
       </button>
       <div class="w-full h-full flex -mt-6 flex-col items-center justify-around">
-        <div class="searchBar bg-white w-5/6 sm:w-2/3 md:w-2/3 py-2 px-4 rounded-full h-10 mr-4 border border-gray-100 shadow-md">
+        <div class="searchBar bg-white w-5/6 sm:w-2/3 md:w-2/3 lg:mt-0 mt-6 py-2 pl-4 rounded-full h-10 mr-4 border border-gray-100 shadow-md">
           <i class="far fa-lemon mr-4"></i>
-          <input type="text" placeholder="Ingredient (Ex: Lemon juice,Gin,Mint)" class="focus:outline-none w-4/6 sm:w-5/6 bg-white" @keyup.enter="searchFilter" v-model="searchFilterText"/>
+          <input type="text" placeholder="Ingredient (Ex: Lemon juice,Gin,Mint)" class="focus:outline-none w-5/6 bg-white" @keyup.enter="searchFilter" v-model="searchFilterText"/>
         </div>
-        <div class="w-full flex flex-col xl:flex-row justify-around items-center">
-          <div class="filtreAlccol">
+        <div class="w-full flex flex-col lg:flex-row justify-around items-center">
+          <div class="filtreAlccol xl:mb-0 mb-4">
             <label for="toggle" class="text-gray-700">Alcoholic</label>
             <div class="relative inline-block w-12 ml-2 align-middle select-none transition duration-200 ease-in ">
               <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer" v-model="alcoholic" />
               <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" ></label>
             </div>
           </div>
-          <div class="relative inline-flex" v-if="categories">
+          <div class="relative inline-flex xl:mb-0 mb-4" v-if="categories">
             <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
               <path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/>
             </svg>
@@ -47,7 +47,7 @@
               <option v-for="category in categories" :key="category">{{ category.strCategory }}</option>
             </select>
           </div>
-          <div class="relative inline-flex">
+          <div class="relative inline-flex xl:mb-0 mb-6">
             <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
               <path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/>
             </svg>
