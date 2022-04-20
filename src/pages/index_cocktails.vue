@@ -21,7 +21,7 @@
   </div>
 
   <div class="filtreBlock w-full flex justify-center mt-6" v-if="FilterPage">
-    <div class="filterPage bg-white h-64 w-5/12 rounded-xl shadow-lg relative">
+    <div class="filterPage bg-white h-64 xl:w-5/12 w-10/12 rounded-xl shadow-lg relative">
       <button v-on:click="closeFilterPage">
         <i class="fas fa-times absolute top-2 right-4"></i>
       </button>
@@ -30,7 +30,7 @@
           <i class="far fa-lemon mr-4"></i>
           <input type="text" placeholder="Ingredient (Ex: Lemon juice,Gin,Mint)" class="focus:outline-none w-4/6 sm:w-5/6 bg-white" @keyup.enter="searchFilter" v-model="searchFilterText"/>
         </div>
-        <div class="w-full flex justify-around items-center">
+        <div class="w-full flex flex-col xl:flex-row justify-around items-center">
           <div class="filtreAlccol">
             <label for="toggle" class="text-gray-700">Alcoholic</label>
             <div class="relative inline-block w-12 ml-2 align-middle select-none transition duration-200 ease-in ">
@@ -65,7 +65,7 @@
   </div>
   <div class="w-full flex justify-center" :class="{ hidden: loading }">
     <div class="flex items-center mt-32" v-if="results == 'None'">
-      <img src="https://distok.top/stickers/755240383084232756/755242982843613305.gif" alt="" class="w-48"/>
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_cfalsouq.json"  background="transparent"  speed="1"  class="w-48"  loop autoplay></lottie-player>
       <h1 class="ml-8 text-2xl">Oops... No result for your search</h1>
     </div>
     <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-else-if="randomDrink != null && results == null">
