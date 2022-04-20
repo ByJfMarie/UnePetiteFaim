@@ -7,7 +7,7 @@ import {
 } from 'vue-router'
 
 const routes = [{
-    path: '/a-little-thirsty',
+    path: '/',
     name: 'Cocktails',
     component: () => import('../pages/index_cocktails.vue')
 }, ]

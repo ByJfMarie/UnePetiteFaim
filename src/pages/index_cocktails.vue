@@ -64,9 +64,9 @@
     </div>
   </div>
   <div class="w-full flex justify-center" :class="{ hidden: loading }">
-    <div class="flex items-center mt-32" v-if="results == 'None'">
-      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_cfalsouq.json"  background="transparent"  speed="1"  class="w-48"  loop autoplay></lottie-player>
-      <h1 class="ml-8 text-2xl">Oops... No result for your search</h1>
+    <div class="flex items-center mt-32 flex-wrap" v-if="results == 'None'">
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_cfalsouq.json"  background="transparent"  speed="1"  class="w-48 md:mx-4 mx-auto justify-center"  loop autoplay></lottie-player>
+      <h1 class="md:mx-4 mx-auto md:mt-0 mt-2 px-2 md:px-0 text-2xl justify-center">Oops... No result for your search</h1>
     </div>
     <div class="flex justify-around flex-wrap w-full 2sm:w-9/12 mt-14" v-else-if="randomDrink != null && results == null">
       <h1 class="text-center font-bold text-xl">Random drinks</h1>
